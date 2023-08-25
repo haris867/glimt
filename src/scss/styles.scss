@@ -26,14 +26,21 @@ body {
 
 .camera-capture {
   z-index: 23;
+  bottom: calc(100px + 10vw);
 }
 
 .camera-capture__input {
   display: none;
 }
 .camera-capture__label {
-  font-size: 3em;
+  font-size: 4em;
   color: $quaternary-color;
+  transition: color 0.4s ease-in-out, transform 0.4s ease-in-out;
+  transform: scale(1);
+  &:hover {
+    color: $secondary-color;
+    transform: scale(1.1);
+  }
 }
 .camera-capture__label svg {
   cursor: pointer;

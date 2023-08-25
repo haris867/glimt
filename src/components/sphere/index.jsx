@@ -1,22 +1,74 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
+// import FontFaceObserver from "fontfaceobserver";
 import * as THREE from "three";
-import { Text } from "@react-three/drei";
-import fontJson from "../../assets/Poppins_Bold.json";
-import GlimtText from "../../assets/Glimt-text.png";
 
-console.log(GlimtText);
+async function createTextTexture(text) {
+  // const fontObserver = new FontFaceObserver("Poppins");
+  // try {
+  //   await fontObserver.load(); // Wait for Poppins to load
+  //   console.log("Poppins font loaded");
+  // } catch (err) {
+  //   console.log("Poppins font failed to load", err);
+  //   // Potentially set a fallback font here
+  // }
 
-export default function Sphere({
-  position = [0, 0, 0],
-  textContent = "Glimt",
-}) {
+  const canvas = document.createElement("canvas");
+  canvas.width = 512;
+  canvas.height = 512;
+
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "transparent";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.font = "bold 132px Poppins, sans-serif"; // Fallback to sans-serif if Poppins fails to load
+  ctx.fillStyle = "white";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.measureText(text);
+  ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+  console.log("Text drawn to canvas:", text);
+
+  return new THREE.CanvasTexture(canvas);
+}
+
+export default function Sphere({ position = [0, 0, 0], text = "Glimt" }) {
+  const [textTexture, setTextTexture] = useState(null);
+  const [fontLoaded, setFontLoaded] = useState(false);
   const meshRef = useRef(null);
-  // useFrame(() => {
-  //   if (meshRef.current) {
-  //     meshRef.current.rotation.x += 0.001;
-  //     meshRef.current.rotation.y += 0.001;
-  //   }
-  // });
+
+  useEffect(() => {
+    // Load the Poppins font and update the fontLoaded state
+    document.fonts
+      .load("bold 132px Poppins")
+      .then(() => {
+        setFontLoaded(true);
+      })
+      .catch((err) => {
+        console.log("Font loading error:", err);
+      });
+  }, []);
+
+  useEffect(() => {
+    const loadTexture = async () => {
+      // const fontObserver = new FontFaceObserver("Poppins");
+      try {
+        // await fontObserver.load(); // Wait for Poppins to load
+        const texture = await createTextTexture(text);
+        setTextTexture(texture);
+      } catch (err) {
+        console.log("Error in text texture creation:", err);
+        // Handle the error, potentially setting a fallback font or texture
+      }
+    };
+
+    if (fontLoaded) {
+      // Ensure texture creation only after font load
+      loadTexture();
+    }
+  }, [text, fontLoaded]);
+
+  if (!textTexture) return null; // or return a placeholder/loading state
+
   return (
     <group position={position}>
       <mesh ref={meshRef}>
@@ -28,7 +80,7 @@ export default function Sphere({
           onBeforeCompile={(shader) => {
             shader.uniforms.topColor = { value: new THREE.Color("#C97BB1") };
             shader.uniforms.bottomColor = { value: new THREE.Color("#2d6b79") };
-            // Add the gradient to the fragment shader
+            // Adding the gradient to the fragment shader
             shader.fragmentShader =
               "uniform vec3 topColor;\n" + shader.fragmentShader;
             shader.fragmentShader =
@@ -46,17 +98,20 @@ export default function Sphere({
           }}
         />
       </mesh>
-      <Text
-        font="../../assets/Poppins_Bold.json"
-        color="#fff"
-        fontSize={0.4}
-        anchorX="center"
-        anchorY="middle"
-        position={[-0.15, -0.35, 1]} // Adjust position as needed. This will put the text on top of the sphere.
-      >
-        {textContent}
-      </Text>
-      // {/* <ImageSegment texture={texture} position={[0, 0, 0]} /> */}
+      <mesh>
+        <sphereGeometry
+          args={[
+            1,
+            64,
+            64,
+            Math.PI * 0.22,
+            Math.PI * 0.5,
+            Math.PI * 0.32,
+            Math.PI * 0.5,
+          ]}
+        />
+        <meshBasicMaterial map={textTexture} transparent={true} />
+      </mesh>
     </group>
   );
 }

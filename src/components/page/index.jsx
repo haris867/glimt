@@ -13,7 +13,7 @@ export default function Page() {
           capture="environment"
         />
       </div> */}
-      <div className="position-absolute camera-capture">
+      <div className="position-absolute camera-capture w-100">
         <input
           accept="image/*"
           id="icon-button-file"

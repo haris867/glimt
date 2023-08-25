@@ -1,7 +1,6 @@
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import React, { useRef } from "react";
 import { OrbitControls } from "@react-three/drei";
-import glimtText from "../../assets/Glimt-text.png";
 import AnimatedLight from "../pointLight";
 import Sphere from "../sphere";
 
@@ -60,7 +59,7 @@ export default function ThreeFiberScene() {
         minPolarAngle={Math.PI / 2}
         maxPolarAngle={Math.PI / 2}
       />
-      <Sphere position={[0, 1.5, 0]} />
+      <Sphere position={[0, 1, 0]} />
     </Canvas>
   );
 }
