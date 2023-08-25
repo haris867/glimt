@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Poppins:wght@100;300;400;500;600;700&family=Roboto+Mono:wght@400;700&display=swap");
+
+$primary-color: #2d6b79;
+$secondary-color: #c97bb1;
+$tertiary-color: #3a8385;
+$quaternary-color: #f4d2da;
+
+body {
+  background-color: $primary-color !important;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  padding-top: env(safe-area-inset-top);
+  height: 100vh;
+  width: 100vw;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+.poppins {
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+}
+
+.camera-capture {
+  z-index: 23;
+}
+
+.camera-capture__input {
+  display: none;
+}
+.camera-capture__label {
+  font-size: 3em;
+  color: $quaternary-color;
+}
+.camera-capture__label svg {
+  cursor: pointer;
+}
