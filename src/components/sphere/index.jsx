@@ -1,17 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
-// import FontFaceObserver from "fontfaceobserver";
 import * as THREE from "three";
 
 async function createTextTexture(text) {
-  // const fontObserver = new FontFaceObserver("Poppins");
-  // try {
-  //   await fontObserver.load(); // Wait for Poppins to load
-  //   console.log("Poppins font loaded");
-  // } catch (err) {
-  //   console.log("Poppins font failed to load", err);
-  //   // Potentially set a fallback font here
-  // }
-
   const canvas = document.createElement("canvas");
   canvas.width = 512;
   canvas.height = 512;
@@ -20,7 +10,7 @@ async function createTextTexture(text) {
   ctx.fillStyle = "transparent";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.font = "bold 132px Poppins, sans-serif"; // Fallback to sans-serif if Poppins fails to load
+  ctx.font = "bold 132px Poppins, sans-serif";
   ctx.fillStyle = "white";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
@@ -37,7 +27,6 @@ export default function Sphere({ position = [0, 0, 0], text = "Glimt" }) {
   const meshRef = useRef(null);
 
   useEffect(() => {
-    // Load the Poppins font and update the fontLoaded state
     document.fonts
       .load("bold 132px Poppins")
       .then(() => {
@@ -50,9 +39,7 @@ export default function Sphere({ position = [0, 0, 0], text = "Glimt" }) {
 
   useEffect(() => {
     const loadTexture = async () => {
-      // const fontObserver = new FontFaceObserver("Poppins");
       try {
-        // await fontObserver.load(); // Wait for Poppins to load
         const texture = await createTextTexture(text);
         setTextTexture(texture);
       } catch (err) {
@@ -62,7 +49,6 @@ export default function Sphere({ position = [0, 0, 0], text = "Glimt" }) {
     };
 
     if (fontLoaded) {
-      // Ensure texture creation only after font load
       loadTexture();
     }
   }, [text, fontLoaded]);
@@ -75,8 +61,8 @@ export default function Sphere({ position = [0, 0, 0], text = "Glimt" }) {
         <sphereGeometry args={[1, 64, 64]} />
         <meshStandardMaterial
           color={new THREE.Color("#2d6b79")}
-          metalness={0.7}
-          roughness={0.1}
+          metalness={0.2}
+          roughness={0.3}
           onBeforeCompile={(shader) => {
             shader.uniforms.topColor = { value: new THREE.Color("#C97BB1") };
             shader.uniforms.bottomColor = { value: new THREE.Color("#2d6b79") };

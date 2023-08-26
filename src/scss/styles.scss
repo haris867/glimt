@@ -45,3 +45,12 @@ body {
 .camera-capture__label svg {
   cursor: pointer;
 }
+
+.camera-capture__image {
+  width: 300px; /* or whatever size you want */
+  margin: 30px auto;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

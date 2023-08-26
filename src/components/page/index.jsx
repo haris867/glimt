@@ -25,7 +25,9 @@ export default function Page() {
           <MdMonochromePhotos />
         </label>
       </div>
+
       <ThreeFiberScene className="w-100 h-100" />
+      <div className="position absolute camera-capture__image">Hey</div>
     </div>
   );
 }

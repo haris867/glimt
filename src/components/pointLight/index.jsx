@@ -19,7 +19,7 @@ export default function AnimatedLight() {
     <pointLight
       ref={lightRef}
       position={[-10, 15, 15]}
-      intensity={2000}
+      intensity={1000}
       distance={100}
     />
   );
