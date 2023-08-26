@@ -28,11 +28,14 @@ canvas {
   font-weight: bold;
 }
 
-.header {
-  bottom: 0;
-  margin-bottom: 0;
+// .header {
+//   bottom: 0px;
+//   margin-bottom: 0px;
+//   position: relative;
+// }
+
+.canvas-wrapper {
   transition: bottom 1.5s ease-out, margin-bottom 1.5s ease-out;
-  position: relative;
 }
 
 .camera-capture {

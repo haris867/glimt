@@ -1,43 +1,56 @@
 import { Canvas } from "@react-three/fiber";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { OrbitControls } from "@react-three/drei";
 import AnimatedLight from "../pointLight";
 import Sphere from "../sphere";
-import * as THREE from "three";
+// import * as THREE from "three";
 
 export default function ThreeFiberScene(props) {
-  const cameraRef = useRef();
   console.log("props.isClicked", props.isClicked);
-  const canvasWrapper = document.querySelector(".header");
 
-  const targetXPosition = props.isClicked ? -3.6 : 0;
-  const [currentXPosition, setCurrentXPosition] = useState(targetXPosition);
+  // const targetXPosition = props.isClicked ? -3.6 : 0;
+  // const [currentXPosition, setCurrentXPosition] = useState(targetXPosition);
+  const [canvasStyle, setCanvasStyle] = useState({});
 
   useEffect(() => {
     if (props.isClicked) {
-      canvasWrapper.style.bottom = "80px";
-      canvasWrapper.style.marginBottom = "calc(-100px - 10vw)";
-    }
-    const interval = setInterval(() => {
-      setCurrentXPosition((prevXPosition) => {
-        // The 0.05 here determines the speed of the interpolation.
-        const newXPosition = THREE.MathUtils.lerp(
-          prevXPosition,
-          targetXPosition,
-          0.05
-        );
-        if (Math.abs(newXPosition - targetXPosition) < 0.01) {
-          clearInterval(interval);
-          return targetXPosition;
-        }
-        return newXPosition;
+      setCanvasStyle({
+        bottom: "80px",
+        marginBottom: "calc(-100px - 10vw)",
       });
-    }, 16); // Roughly 60 frames per second
-    return () => clearInterval(interval);
+    } else {
+      setCanvasStyle({
+        bottom: "0px",
+        marginBottom: "0px",
+      });
+    }
   }, [props.isClicked]);
 
+  // useEffect(() => {
+  //   if (props.isClicked) {
+  //     canvasWrapper.style.bottom = "80px";
+  //     canvasWrapper.style.marginBottom = "calc(-100px - 10vw)";
+  //   }
+  //   const interval = setInterval(() => {
+  //     setCurrentXPosition((prevXPosition) => {
+  //       // The 0.05 here determines the speed of the interpolation.
+  //       const newXPosition = THREE.MathUtils.lerp(
+  //         prevXPosition,
+  //         targetXPosition,
+  //         0.05
+  //       );
+  //       if (Math.abs(newXPosition - targetXPosition) < 0.01) {
+  //         clearInterval(interval);
+  //         return targetXPosition;
+  //       }
+  //       return newXPosition;
+  //     });
+  //   }, 16); // Roughly 60 frames per second
+  //   return () => clearInterval(interval);
+  // }, [props.isClicked]);
+
   return (
-    <Canvas className="canvas-wrapper">
+    <Canvas style={canvasStyle} className="canvas-wrapper">
       {/* <perspectiveCamera
         ref={cameraRef}
         aspect={1 / 4}

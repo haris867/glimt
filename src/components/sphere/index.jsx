@@ -43,7 +43,7 @@ export default function Sphere({
       });
     }, 16); // Roughly 60 frames per second
     return () => clearInterval(interval);
-  }, [isClicked]);
+  }, [isClicked, targetRadius]);
 
   const [textTexture, setTextTexture] = useState(null);
   const [fontLoaded, setFontLoaded] = useState(false);
