@@ -14,6 +14,11 @@ body {
   width: 100vw;
 }
 
+header {
+  transition: height 0.4s ease-in;
+  height: 50%;
+}
+
 #root {
   height: 100%;
   width: 100%;
@@ -48,8 +53,7 @@ body {
 
 .camera-capture__image {
   width: 300px; /* or whatever size you want */
-  margin: 30px auto;
-  height: 300px;
+  margin: 0 auto;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

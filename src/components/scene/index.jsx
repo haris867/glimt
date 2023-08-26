@@ -24,10 +24,10 @@ export default function ThreeFiberScene() {
         enableRotate={true}
         enableZoom={false}
         minPolarAngle={Math.PI / 2 - 0.2}
-        maxPolarAngle={Math.PI / 2 + 0.2}
+        maxPolarAngle={Math.PI / 2 + 0.5}
         enableRotateUp={false}
       />
-      <Sphere position={[0, 1, 0]} />
+      <Sphere position={[0, 0, 0]} />
     </Canvas>
   );
 }

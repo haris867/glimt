@@ -58,7 +58,7 @@ export default function Sphere({ position = [0, 0, 0], text = "Glimt" }) {
   return (
     <group position={position}>
       <mesh ref={meshRef}>
-        <sphereGeometry args={[1, 64, 64]} />
+        <sphereGeometry args={[2, 64, 64]} />
         <meshStandardMaterial
           color={new THREE.Color("#2d6b79")}
           metalness={0.2}
@@ -87,7 +87,7 @@ export default function Sphere({ position = [0, 0, 0], text = "Glimt" }) {
       <mesh>
         <sphereGeometry
           args={[
-            1,
+            2,
             64,
             64,
             Math.PI * 0.22,
