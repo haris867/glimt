@@ -22,7 +22,7 @@ export default function CameraCapture({ onLabelClick }) {
   };
 
   return (
-    <div className="w-100">
+    <div className="w-100 mt-4">
       {/* <h1>Page</h1>
       <div>
         <input

@@ -68,3 +68,36 @@ canvas {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.access-input {
+  gap: 10px;
+  max-width: 300px;
+}
+
+.access-input input {
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1.2em;
+  font-family: "Poppins", sans-serif;
+  padding: 10px;
+  width: 100%;
+  &:focus {
+    outline: none;
+  }
+}
+
+.access-input button {
+  background-color: $primary-color;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1.2em;
+  font-family: "Poppins", sans-serif;
+  padding: 10px;
+  width: 100%;
+  &:focus {
+    outline: none;
+  }
+}
