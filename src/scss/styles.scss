@@ -14,9 +14,8 @@ body {
   width: 100vw;
 }
 
-header {
-  transition: height 0.4s ease-in;
-  height: 50%;
+canvas {
+  height: calc(160px + 10vw) !important;
 }
 
 #root {
@@ -27,6 +26,13 @@ header {
 .poppins {
   font-family: "Poppins", sans-serif;
   font-weight: bold;
+}
+
+.header {
+  bottom: 0;
+  margin-bottom: 0;
+  transition: bottom 1.5s ease-out, margin-bottom 1.5s ease-out;
+  position: relative;
 }
 
 .camera-capture {
@@ -52,7 +58,8 @@ header {
 }
 
 .camera-capture__image {
-  width: 300px; /* or whatever size you want */
+  width: calc(100px + 50vw);
+  max-width: 450px;
   margin: 0 auto;
   background-size: cover;
   background-position: center;

@@ -1,33 +1,60 @@
 import { Canvas } from "@react-three/fiber";
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { OrbitControls } from "@react-three/drei";
 import AnimatedLight from "../pointLight";
 import Sphere from "../sphere";
+import * as THREE from "three";
 
-export default function ThreeFiberScene() {
+export default function ThreeFiberScene(props) {
   const cameraRef = useRef();
+  console.log("props.isClicked", props.isClicked);
+  const canvasWrapper = document.querySelector(".header");
+
+  const targetXPosition = props.isClicked ? -3.6 : 0;
+  const [currentXPosition, setCurrentXPosition] = useState(targetXPosition);
+
+  useEffect(() => {
+    if (props.isClicked) {
+      canvasWrapper.style.bottom = "80px";
+      canvasWrapper.style.marginBottom = "calc(-100px - 10vw)";
+    }
+    const interval = setInterval(() => {
+      setCurrentXPosition((prevXPosition) => {
+        // The 0.05 here determines the speed of the interpolation.
+        const newXPosition = THREE.MathUtils.lerp(
+          prevXPosition,
+          targetXPosition,
+          0.05
+        );
+        if (Math.abs(newXPosition - targetXPosition) < 0.01) {
+          clearInterval(interval);
+          return targetXPosition;
+        }
+        return newXPosition;
+      });
+    }, 16); // Roughly 60 frames per second
+    return () => clearInterval(interval);
+  }, [props.isClicked]);
 
   return (
     <Canvas className="canvas-wrapper">
-      <perspectiveCamera
+      {/* <perspectiveCamera
         ref={cameraRef}
         aspect={1 / 4}
         fov={75}
-        position={[0, 0, 25]}
-      />
+        position={[0, 2, 25]}
+      /> */}
       <ambientLight intensity={2.3} />
       {/* <directionalLight position={[5, 5, -5]} intensity={1} /> */}
       <AnimatedLight />
       <OrbitControls
-        camera={cameraRef.current}
         enablePan={false}
         enableRotate={true}
         enableZoom={false}
-        minPolarAngle={Math.PI / 2 - 0.2}
-        maxPolarAngle={Math.PI / 2 + 0.5}
-        enableRotateUp={false}
+        minPolarAngle={Math.PI / 2 - 0.1}
+        maxPolarAngle={Math.PI / 2 + 0.4}
       />
-      <Sphere position={[0, 0, 0]} />
+      <Sphere isClicked={props.isClicked} position={[0, 0, 0]} />
     </Canvas>
   );
 }

@@ -1,59 +1,21 @@
-import React, { useState } from "react";
-import { MdMonochromePhotos } from "react-icons/md";
 import ThreeFiberScene from "../scene";
+import CameraCapture from "../cameraCapture";
+import React, { useState } from "react";
 
 export default function Page() {
-  const [imageSrc, setImageSrc] = useState(null);
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImageSrc(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
+  const [isClicked, setIsClicked] = useState(false);
+  const handleLabelClick = () => {
+    console.log("Label clicked");
+    setIsClicked(true);
   };
 
   return (
     <>
-      <header>
-        <ThreeFiberScene className="w-100 h-100" />
-      </header>
-      <div className="w-100">
-        {/* <h1>Page</h1>
-      <div>
-        <input
-          accept="image/*"
-          id="icon-button-file"
-          type="file"
-          capture="environment"
-        />
-      </div> */}
-        <div className="camera-capture__image">
-          {imageSrc && (
-            <img
-              src={imageSrc}
-              alt="Captured preview"
-              className="w-100 h-100"
-            />
-          )}
-        </div>
-        <div className="camera-capture w-100">
-          <input
-            accept="image/*"
-            id="icon-button-file"
-            className="camera-capture__input"
-            type="file"
-            capture="environment"
-            onChange={handleImageChange}
-          />
-          <label htmlFor="icon-button-file" className="camera-capture__label">
-            <MdMonochromePhotos />
-          </label>
-        </div>
+      {/* <header className="my-4" style={{ height: isClicked ? "20%" : "60%" }}> */}
+      <div className="header py-4">
+        <ThreeFiberScene isClicked={isClicked} />
       </div>
+      <CameraCapture onLabelClick={handleLabelClick} />
     </>
   );
 }

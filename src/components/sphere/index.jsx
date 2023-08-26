@@ -10,7 +10,7 @@ async function createTextTexture(text) {
   ctx.fillStyle = "transparent";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.font = "bold 132px Poppins, sans-serif";
+  ctx.font = "bold 108px Poppins, sans-serif";
   ctx.fillStyle = "white";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
@@ -21,14 +21,37 @@ async function createTextTexture(text) {
   return new THREE.CanvasTexture(canvas);
 }
 
-export default function Sphere({ position = [0, 0, 0], text = "Glimt" }) {
+export default function Sphere({
+  position = [0, 0, 0],
+  text = "Glimt",
+  isClicked,
+}) {
+  console.log("isClicked", isClicked);
+  const targetRadius = isClicked ? 1 : 3;
+  const [currentRadius, setCurrentRadius] = useState(targetRadius);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentRadius((prevRadius) => {
+        // The 0.05 here determines the speed of the interpolation.
+        const newRadius = THREE.MathUtils.lerp(prevRadius, targetRadius, 0.05);
+        if (Math.abs(newRadius - targetRadius) < 0.01) {
+          clearInterval(interval);
+          return targetRadius;
+        }
+        return newRadius;
+      });
+    }, 16); // Roughly 60 frames per second
+    return () => clearInterval(interval);
+  }, [isClicked]);
+
   const [textTexture, setTextTexture] = useState(null);
   const [fontLoaded, setFontLoaded] = useState(false);
   const meshRef = useRef(null);
 
   useEffect(() => {
     document.fonts
-      .load("bold 132px Poppins")
+      .load("bold 108px Poppins")
       .then(() => {
         setFontLoaded(true);
       })
@@ -58,7 +81,8 @@ export default function Sphere({ position = [0, 0, 0], text = "Glimt" }) {
   return (
     <group position={position}>
       <mesh ref={meshRef}>
-        <sphereGeometry args={[2, 64, 64]} />
+        10
+        <sphereGeometry args={[currentRadius, 64, 64]} />
         <meshStandardMaterial
           color={new THREE.Color("#2d6b79")}
           metalness={0.2}
@@ -87,7 +111,7 @@ export default function Sphere({ position = [0, 0, 0], text = "Glimt" }) {
       <mesh>
         <sphereGeometry
           args={[
-            2,
+            currentRadius + 0.001,
             64,
             64,
             Math.PI * 0.22,
