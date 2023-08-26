@@ -18,6 +18,7 @@ export default function Page() {
       setIsCorrect(true);
     } else {
       console.log("Incorrect password. Please try again.");
+      setError("Incorrect input. Please try again.");
     }
   };
 
