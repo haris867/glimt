@@ -31,8 +31,16 @@ export default function Page() {
           capture="environment"
         />
       </div> */}
-
-        <div className="position-absolute camera-capture w-100">
+        <div className="camera-capture__image">
+          {imageSrc && (
+            <img
+              src={imageSrc}
+              alt="Captured image preview"
+              className="w-100 h-100"
+            />
+          )}
+        </div>
+        <div className="camera-capture w-100">
           <input
             accept="image/*"
             id="icon-button-file"
@@ -44,15 +52,6 @@ export default function Page() {
           <label htmlFor="icon-button-file" className="camera-capture__label">
             <MdMonochromePhotos />
           </label>
-        </div>
-        <div className="position-absolute camera-capture__image">
-          {imageSrc && (
-            <img
-              src={imageSrc}
-              alt="Captured image preview"
-              className="w-100 h-100"
-            />
-          )}
         </div>
       </div>
     </>
