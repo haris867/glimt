@@ -35,7 +35,7 @@ export default function Page() {
           {imageSrc && (
             <img
               src={imageSrc}
-              alt="Captured image preview"
+              alt="Captured preview"
               className="w-100 h-100"
             />
           )}
