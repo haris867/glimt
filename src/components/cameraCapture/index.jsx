@@ -63,6 +63,7 @@ export default function CameraCapture({ onLabelClick }) {
   const clearImage = () => {
     setImageSrc(null); // Clear the image source
     if (onLabelClick) onLabelClick(null); // Notify the parent
+    setOpen(!open);
   };
 
   const [imageSrc, setImageSrc] = useState(null);
@@ -97,7 +98,6 @@ export default function CameraCapture({ onLabelClick }) {
             <CapturedRemoveButton
               className="align-self-end mb-2"
               onClick={clearImage}
-              onPointerDown={() => setOpen(!open)}
             >
               X
             </CapturedRemoveButton>
