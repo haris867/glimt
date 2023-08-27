@@ -1,6 +1,51 @@
 import ThreeFiberScene from "../scene";
 import CameraCapture from "../cameraCapture";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { save, load } from "../../hooks/storage";
+
+const AccessContainer = styled.div`
+  gap: 10px;
+  max-width: 300px;
+`;
+
+const AccessInput = styled.input`
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1.2em;
+  font-weight: 500;
+  transition: all 0.3s ease-in;
+  font-family: "Poppins", sans-serif;
+  padding: 10px;
+  width: 100%;
+  &:focus {
+    outline: none;
+    background-color: #fff;
+    color: #2d6b79;
+  }
+`;
+
+const AccessButton = styled.button`
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  transition: all 0.3s ease-in;
+  font-size: 1.2em;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+  padding: 10px;
+  width: 100%;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background-color: #fff;
+    color: #2d6b79;
+  }
+`;
 
 export default function Page() {
   const [isClicked, setIsClicked] = useState(false);
@@ -8,41 +53,48 @@ export default function Page() {
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState(null);
 
-  const handleLabelClick = () => {
+  useEffect(() => {
+    const isLoggedIn = load("accessCode");
+    if (isLoggedIn) {
+      setIsCorrect(true);
+    }
+  }, []);
+
+  const handleLabelClick = (value) => {
     console.log("Label clicked");
-    setIsClicked(true);
+    setIsClicked(Boolean(value)); // true if value exists, false otherwise
   };
 
   const handleSubmit = () => {
     if (inputValue === "images123") {
       setIsCorrect(true);
+      save("accessCode", JSON.stringify(inputValue));
     } else {
-      console.log("Incorrect password. Please try again.");
-      setError("Incorrect input. Please try again.");
+      setError("Incorrect access code. Please try again.");
     }
   };
 
   return (
     <>
-      <div className="header py-4">
+      <div className="header">
         <ThreeFiberScene isClicked={isClicked} />
-        {!isCorrect ? (
-          <div className="access-input d-flex flex-column justify-content-center w-75 mx-auto mt-4">
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Your access code"
-            />
-            <button onClick={handleSubmit}>JOIN</button>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-          </div>
-        ) : (
-          <>
-            <CameraCapture onLabelClick={handleLabelClick} />
-          </>
-        )}
       </div>
+      {!isCorrect ? (
+        <AccessContainer className="d-flex flex-column justify-content-center w-75 mx-auto mt-4">
+          <AccessInput
+            type="text"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            placeholder="Your access code"
+          />
+          <AccessButton onClick={handleSubmit}>JOIN</AccessButton>
+          {error && <p style={{ color: "red" }}>{error}</p>}
+        </AccessContainer>
+      ) : (
+        <>
+          <CameraCapture onLabelClick={handleLabelClick} />
+        </>
+      )}
     </>
   );
 }

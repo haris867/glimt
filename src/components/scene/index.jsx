@@ -50,7 +50,7 @@ export default function ThreeFiberScene(props) {
   // }, [props.isClicked]);
 
   return (
-    <Canvas style={canvasStyle} className="canvas-wrapper">
+    <Canvas style={canvasStyle} className="canvas-wrapper pt-4">
       {/* <perspectiveCamera
         ref={cameraRef}
         aspect={1 / 4}
