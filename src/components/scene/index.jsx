@@ -15,7 +15,7 @@ export default function ThreeFiberScene(props) {
   useEffect(() => {
     if (props.isClicked) {
       setCanvasStyle({
-        bottom: "80px",
+        bottom: "50px",
         marginBottom: "calc(-150px)",
       });
     } else {

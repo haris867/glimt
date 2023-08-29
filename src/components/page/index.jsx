@@ -3,8 +3,9 @@ import CameraCapture from "../cameraCapture";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { save, load } from "../../hooks/storage";
+import { Col } from "react-bootstrap";
 
-const AccessContainer = styled.div`
+const AccessContainer = styled(Col)`
   gap: 10px;
   max-width: 300px;
 `;
@@ -47,6 +48,10 @@ const AccessButton = styled.button`
   }
 `;
 
+const PageContainer = styled.div`
+  gap: calc(10px + 5vh);
+`;
+
 export default function Page() {
   const [isClicked, setIsClicked] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
@@ -66,7 +71,11 @@ export default function Page() {
   };
 
   const handleSubmit = () => {
-    if (inputValue === "images123") {
+    if (
+      inputValue === "images123" ||
+      inputValue === "images1" ||
+      inputValue === "images2"
+    ) {
       setIsCorrect(true);
       save("accessCode", JSON.stringify(inputValue));
     } else {
@@ -75,10 +84,10 @@ export default function Page() {
   };
 
   return (
-    <>
-      <div className="header">
+    <PageContainer className="d-flex flex-column">
+      <Col className="header">
         <ThreeFiberScene isClicked={isClicked} />
-      </div>
+      </Col>
       {!isCorrect ? (
         <AccessContainer className="d-flex flex-column justify-content-center w-75 mx-auto mt-4">
           <AccessInput
@@ -91,10 +100,11 @@ export default function Page() {
           {error && <p style={{ color: "red" }}>{error}</p>}
         </AccessContainer>
       ) : (
-        <>
+        <Col>
           <CameraCapture onLabelClick={handleLabelClick} />
-        </>
+          {/* <TestingApi /> */}
+        </Col>
       )}
-    </>
+    </PageContainer>
   );
 }
