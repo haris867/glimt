@@ -181,7 +181,7 @@ export default function CameraCapture({ onLabelClick }) {
     }
   };
   return (
-    <form className="w-100 mt-2 camera-capture" onSubmit={handleSaveClick}>
+    <form className="w-100 mt-2 camera-capture">
       <CapturedImageContainer className="camera-capture__image w-75 mx-auto d-flex flex-column">
         {imageSrc && (
           <>
@@ -196,7 +196,11 @@ export default function CameraCapture({ onLabelClick }) {
               alt="Captured preview"
               className="w-100 h-100"
             />
-            <CaptureButton type="submit" className="mx-auto mt-3">
+            <CaptureButton
+              onClick={handleSaveClick}
+              type="submit"
+              className="mx-auto mt-3"
+            >
               SUBMIT
             </CaptureButton>
           </>
