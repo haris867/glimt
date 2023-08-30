@@ -174,7 +174,8 @@ export default function CameraCapture({ onLabelClick }) {
         //   setStatusType("error");
         // }
 
-        // const postData = await postRes.json();
+        const postData = await postRes.json();
+        console.log("postData:", postData);
       }
     }
     setIsLoading(false);
