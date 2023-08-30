@@ -182,16 +182,23 @@ export default function CameraCapture({ onLabelClick }) {
     setIsLoading(false);
   };
 
-  function openInstructions() {
-    const instructions = document.querySelector(".instructions");
-    instructions.classList.toggle("display-help");
-  }
   function openAlbum() {
     if (albumOpen) {
       setAlbumOpen(false);
     } else {
       setAlbumOpen(true);
     }
+    const instructions = document.querySelector(".instructions");
+    if (instructions) {
+      instructions.classList.remove("display-help");
+    }
+  }
+  function openInstructions() {
+    if (albumOpen) {
+      setAlbumOpen(false);
+    }
+    const instructions = document.querySelector(".instructions");
+    instructions.classList.toggle("display-help");
   }
 
   return (
