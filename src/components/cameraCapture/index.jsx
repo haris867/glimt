@@ -165,16 +165,16 @@ export default function CameraCapture({ onLabelClick }) {
           body: JSON.stringify({ mutations: [{ create: document }] }),
         });
 
-        if (postRes.ok) {
-          // Fetch images only if POST was successful
-        }
+        // if (postRes.ok) {
+        //   Fetch images only if POST was successful
+        // }
 
         // else {
         //   setStatusMessage("Noe gikk galt 😞");
         //   setStatusType("error");
         // }
 
-        const postData = await postRes.json();
+        // const postData = await postRes.json();
       }
     }
     setIsLoading(false);
