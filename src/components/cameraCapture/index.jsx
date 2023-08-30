@@ -47,7 +47,7 @@ export default function CameraCapture({ onLabelClick }) {
 
   useEffect(() => {
     fetchImages();
-  }, []);
+  }, [fetchImages]);
 
   const clearImage = () => {
     const imageInput = document.getElementById("icon-button-file");
