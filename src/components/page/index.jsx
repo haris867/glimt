@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { save, load } from "../../hooks/storage";
 import { Col } from "react-bootstrap";
-import { BsArrowDown, BsPlusSquare } from "react-icons/bs";
+import { BsArrowDown, BsPlusSquare, BsBoxArrowUp } from "react-icons/bs";
 
 const AccessContainer = styled(Col)`
   gap: 10px;
@@ -103,9 +103,9 @@ export default function Page() {
           />
           <AccessButton onClick={handleSubmit}>BLI MED</AccessButton>
           {error && <p style={{ color: "red" }}>{error}</p>}
-          <div className="mt-3">
+          <div className="mt-3 tips">
             <AddText>
-              iPhone? Trykk her og deretter{" "}
+              iPhone? Trykk på <BsBoxArrowUp /> og deretter{" "}
               <span className="fw-bold">Legg til på Hjem-skjerm</span>{" "}
               <BsPlusSquare />
             </AddText>

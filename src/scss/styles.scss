@@ -111,6 +111,10 @@ canvas {
   animation: climbing 1.3s ease-in infinite;
 }
 
+.tips svg {
+  font-size: 1.3em;
+}
+
 @keyframes climbing {
   0% {
     transform: translateY(0);
