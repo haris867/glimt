@@ -107,6 +107,10 @@ canvas {
   font-family: "Poppins", sans-serif;
 }
 
+.arrow-down {
+  animation: climbing 1.3s ease-in infinite;
+}
+
 @keyframes climbing {
   0% {
     transform: translateY(0);

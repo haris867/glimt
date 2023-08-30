@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { save, load } from "../../hooks/storage";
 import { Col } from "react-bootstrap";
+import { BsArrowDown, BsPlusSquare } from "react-icons/bs";
 
 const AccessContainer = styled(Col)`
   gap: 10px;
@@ -51,6 +52,10 @@ const AccessButton = styled.button`
 const PageContainer = styled.div`
   // gap: calc(10px + 5vh);
 `;
+const AddText = styled.p`
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+`;
 
 export default function Page() {
   const [isClicked, setIsClicked] = useState(false);
@@ -94,10 +99,22 @@ export default function Page() {
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            placeholder="Your access code"
+            placeholder="Tilgangskode"
           />
-          <AccessButton onClick={handleSubmit}>JOIN</AccessButton>
+          <AccessButton onClick={handleSubmit}>BLI MED</AccessButton>
           {error && <p style={{ color: "red" }}>{error}</p>}
+          <div className="mt-3">
+            <AddText>
+              iPhone? Trykk her og deretter{" "}
+              <span className="fw-bold">Legg til på Hjem-skjerm</span>{" "}
+              <BsPlusSquare />
+            </AddText>
+            <BsArrowDown
+              className="arrow-down mx-auto mt-4"
+              size={60}
+              color="white"
+            />
+          </div>
         </AccessContainer>
       ) : (
         <>
