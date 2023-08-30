@@ -115,6 +115,10 @@ canvas {
   font-size: 1.3em;
 }
 
+.album-image img {
+  max-width: 450px;
+}
+
 @keyframes climbing {
   0% {
     transform: translateY(0);

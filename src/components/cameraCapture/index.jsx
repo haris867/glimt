@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdMonochromePhotos } from "react-icons/md";
 import { load } from "../../hooks/storage";
 import * as S from "./index.styles";
@@ -12,6 +12,42 @@ export default function CameraCapture({ onLabelClick }) {
   const [imageSrc, setImageSrc] = useState(null);
   const [statusMessage, setStatusMessage] = useState(null);
   const [statusType, setStatusType] = useState(null);
+  const [albumOpen, setAlbumOpen] = useState(null);
+  const [fetchedImages, setFetchedImages] = useState([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const projectId = "45qbr9g7";
+      const dataset = "production";
+      const apiVersion = "v2021-10-21";
+      const token =
+        "skY4ZPymEfLDlQxeVm4o1z4kyz2Qqop0aYO6eZHjTF2HqQIxo1fqg4q8V6YzNEaTUuhJNXbdEXu1ycsbjm24LnodhPvHbksqetKROrdCFpACAG1Q25vwIcUCw6d7TMw4Y4ol2WVUHV2v592lzRfRalaQ8yppc5BxZaFIc2tAea4amABeaWQw";
+      const query = encodeURIComponent(
+        '*[_type == "images2"]{time, "imageUrl": image.asset->url}'
+      );
+
+      const url = `https://${projectId}.api.sanity.io/${apiVersion}/data/query/${dataset}?query=${query}`;
+
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const sortedImages = data.result.sort((a, b) => {
+          return new Date(b.time) - new Date(a.time);
+        });
+        setFetchedImages(sortedImages);
+      } else {
+        console.error("Failed to fetch images");
+      }
+    };
+
+    fetchImages();
+  }, []);
+
   const clearImage = () => {
     const imageInput = document.getElementById("icon-button-file");
 
@@ -148,6 +184,13 @@ export default function CameraCapture({ onLabelClick }) {
     const instructions = document.querySelector(".instructions");
     instructions.classList.toggle("display-help");
   }
+  function openAlbum() {
+    if (albumOpen) {
+      setAlbumOpen(false);
+    } else {
+      setAlbumOpen(true);
+    }
+  }
 
   return (
     <div className="w-100 camera-capture">
@@ -209,7 +252,10 @@ export default function CameraCapture({ onLabelClick }) {
                 <MdMonochromePhotos className="icons camera-capture__icon mygap-3" />
               </label>
               <div className="d-flex justify-content-between">
-                <TbPhoto className="album-icon icons ms-2" />
+                <TbPhoto
+                  className="album-icon icons ms-2"
+                  onClick={openAlbum}
+                />
                 <TbQuestionMark
                   onClick={openInstructions}
                   className="instructions-icon icons"
@@ -224,6 +270,26 @@ export default function CameraCapture({ onLabelClick }) {
           )}
         </div>
       </div>
+      {albumOpen && (
+        <div className="w-100">
+          {fetchedImages.map((imgData, index) => {
+            const date = new Date(imgData.time);
+            const day = String(date.getDate()).padStart(2, "0");
+            const month = String(date.getMonth() + 1).padStart(2, "0"); // January is 0!
+            const hours = String(date.getHours()).padStart(2, "0");
+            const minutes = String(date.getMinutes()).padStart(2, "0");
+
+            const formattedDate = `${day}/${month} ${hours}:${minutes}`;
+
+            return (
+              <div key={index} className="album-image w-100">
+                <img src={imgData.imageUrl} alt="Fetched" className="w-100" />
+                <p className="mt-2 status-message">{formattedDate}</p>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
