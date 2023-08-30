@@ -99,6 +99,10 @@ export default function CameraCapture({ onLabelClick }) {
       body: byteArray,
     });
 
+    if (albumOpen) {
+      setAlbumOpen(false);
+    }
+
     const clearStatusMessage = () => {
       setTimeout(() => {
         setStatusMessage(null);
@@ -107,19 +111,18 @@ export default function CameraCapture({ onLabelClick }) {
     };
 
     if (uploadRes.ok) {
+      setIsLoading(false);
       setStatusMessage("Bildet er lastet opp 🌥️");
       setStatusType("success");
       await fetchImages();
     } else {
+      setIsLoading(false);
       setStatusMessage("Noe gikk galt 😞");
       setStatusType("error");
     }
     clearStatusMessage();
 
     const uploadData = await uploadRes.json();
-    setIsLoading(false);
-    console.log(uploadData);
-    console.log("Asset ID set:", uploadData.document._id);
     return uploadData;
   };
 
@@ -152,8 +155,6 @@ export default function CameraCapture({ onLabelClick }) {
           },
         };
 
-        console.log("Document to be created:", document);
-
         const postUrl = `https://${projectId}.api.sanity.io/${apiVersion}/data/mutate/${dataset}`;
         const postRes = await fetch(postUrl, {
           method: "POST",
@@ -164,22 +165,20 @@ export default function CameraCapture({ onLabelClick }) {
           body: JSON.stringify({ mutations: [{ create: document }] }),
         });
 
-        // if (postRes.ok) {
-        //   setStatusMessage("Bildet er lastet opp 🌥️");
-        //   setStatusType("success");
-        // } else {
+        if (postRes.ok) {
+          // Fetch images only if POST was successful
+        }
+
+        // else {
         //   setStatusMessage("Noe gikk galt 😞");
         //   setStatusType("error");
         // }
 
         const postData = await postRes.json();
-
-        console.log("Document created: ", postData);
       }
-    } else {
-      console.log("No file to upload");
     }
     setIsLoading(false);
+    await fetchImages();
   };
 
   function openAlbum() {
@@ -279,7 +278,7 @@ export default function CameraCapture({ onLabelClick }) {
           )}
         </div>
       </div>
-      {albumOpen && (
+      {albumOpen && !imageSrc && (
         <div className="w-100">
           {fetchedImages.map((imgData, index) => {
             const date = new Date(imgData.time);

@@ -35,9 +35,7 @@ export default function TestingApi() {
     });
 
     const uploadData = await uploadRes.json();
-    setImageAssetId(uploadData.document._id); // <-- This is important
-    console.log(uploadData);
-    console.log("Asset ID set:", uploadData.document._id);
+    setImageAssetId(uploadData.document._id);
   };
 
   //   const handleSaveClick = async () => {
@@ -64,8 +62,6 @@ export default function TestingApi() {
   //       },
   //     };
 
-  //     console.log("Document to be created:", document);
-
   //     const postUrl = `https://${projectId}.api.sanity.io/${apiVersion}/data/mutate/${dataset}`;
   //     const postRes = await fetch(postUrl, {
   //       method: "POST",
@@ -77,7 +73,6 @@ export default function TestingApi() {
   //     });
 
   //     const postData = await postRes.json();
-  //     console.log("Document created: ", postData);
   //   };
 
   return (

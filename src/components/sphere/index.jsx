@@ -16,7 +16,6 @@ async function createTextTexture(text) {
   ctx.textBaseline = "middle";
   ctx.measureText(text);
   ctx.fillText(text, canvas.width / 2, canvas.height / 2);
-  console.log("Text drawn to canvas:", text);
 
   return new THREE.CanvasTexture(canvas);
 }
@@ -26,7 +25,6 @@ export default function Sphere({
   text = "Glimt",
   isClicked,
 }) {
-  console.log("isClicked", isClicked);
   const targetRadius = isClicked ? 1 : 3;
   const [currentRadius, setCurrentRadius] = useState(targetRadius);
 

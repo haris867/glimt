@@ -71,8 +71,7 @@ export default function Page() {
   }, []);
 
   const handleLabelClick = (value) => {
-    console.log("Label clicked");
-    setIsClicked(Boolean(value)); // true if value exists, false otherwise
+    setIsClicked(Boolean(value));
   };
 
   const handleSubmit = () => {

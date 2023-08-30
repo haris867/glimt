@@ -6,8 +6,6 @@ import Sphere from "../sphere";
 // import * as THREE from "three";
 
 export default function ThreeFiberScene(props) {
-  console.log("props.isClicked", props.isClicked);
-
   // const targetXPosition = props.isClicked ? -3.6 : 0;
   // const [currentXPosition, setCurrentXPosition] = useState(targetXPosition);
   const [canvasStyle, setCanvasStyle] = useState({});
