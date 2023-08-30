@@ -15,36 +15,37 @@ export default function CameraCapture({ onLabelClick }) {
   const [albumOpen, setAlbumOpen] = useState(null);
   const [fetchedImages, setFetchedImages] = useState([]);
 
-  useEffect(() => {
-    const fetchImages = async () => {
-      const projectId = "45qbr9g7";
-      const dataset = "production";
-      const apiVersion = "v2021-10-21";
-      const token =
-        "skY4ZPymEfLDlQxeVm4o1z4kyz2Qqop0aYO6eZHjTF2HqQIxo1fqg4q8V6YzNEaTUuhJNXbdEXu1ycsbjm24LnodhPvHbksqetKROrdCFpACAG1Q25vwIcUCw6d7TMw4Y4ol2WVUHV2v592lzRfRalaQ8yppc5BxZaFIc2tAea4amABeaWQw";
-      const query = encodeURIComponent(
-        '*[_type == "images2"]{time, "imageUrl": image.asset->url}'
-      );
+  const fetchImages = async () => {
+    const projectId = "45qbr9g7";
+    const dataset = "production";
+    const apiVersion = "v2021-10-21";
+    const token =
+      "skY4ZPymEfLDlQxeVm4o1z4kyz2Qqop0aYO6eZHjTF2HqQIxo1fqg4q8V6YzNEaTUuhJNXbdEXu1ycsbjm24LnodhPvHbksqetKROrdCFpACAG1Q25vwIcUCw6d7TMw4Y4ol2WVUHV2v592lzRfRalaQ8yppc5BxZaFIc2tAea4amABeaWQw";
+    const query = encodeURIComponent(
+      `*[_type == "${accessCode}"]{time, "imageUrl": image.asset->url}`
+    );
 
-      const url = `https://${projectId}.api.sanity.io/${apiVersion}/data/query/${dataset}?query=${query}`;
+    const url = `https://${projectId}.api.sanity.io/${apiVersion}/data/query/${dataset}?query=${query}`;
 
-      const response = await fetch(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      const sortedImages = data.result.sort((a, b) => {
+        return new Date(b.time) - new Date(a.time);
       });
+      setFetchedImages(sortedImages);
+      console.log("Updated fetchedImages:", sortedImages);
+    } else {
+      console.error("Failed to fetch images");
+    }
+  };
 
-      if (response.ok) {
-        const data = await response.json();
-        const sortedImages = data.result.sort((a, b) => {
-          return new Date(b.time) - new Date(a.time);
-        });
-        setFetchedImages(sortedImages);
-      } else {
-        console.error("Failed to fetch images");
-      }
-    };
-
+  useEffect(() => {
     fetchImages();
   }, []);
 
@@ -108,6 +109,7 @@ export default function CameraCapture({ onLabelClick }) {
     if (uploadRes.ok) {
       setStatusMessage("Bildet er lastet opp 🌥️");
       setStatusType("success");
+      await fetchImages();
     } else {
       setStatusMessage("Noe gikk galt 😞");
       setStatusType("error");
@@ -251,7 +253,7 @@ export default function CameraCapture({ onLabelClick }) {
               <label htmlFor="icon-button-file">
                 <MdMonochromePhotos className="icons camera-capture__icon mygap-3" />
               </label>
-              <div className="d-flex justify-content-between">
+              <div className="d-flex justify-content-between mb-3">
                 <TbPhoto
                   className="album-icon icons ms-2"
                   onClick={openAlbum}
