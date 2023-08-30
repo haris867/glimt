@@ -16,12 +16,10 @@ export default function ThreeFiberScene(props) {
     if (props.isClicked) {
       setCanvasStyle({
         bottom: "50px",
-        marginBottom: "calc(-150px)",
       });
     } else {
       setCanvasStyle({
         bottom: "0px",
-        marginBottom: "0px",
       });
     }
   }, [props.isClicked]);
@@ -64,9 +62,9 @@ export default function ThreeFiberScene(props) {
         enablePan={false}
         enableRotate={true}
         enableZoom={false}
-        minPolarAngle={Math.PI / 2 - 0.1}
-        maxPolarAngle={Math.PI / 2 + 0.4}
-        minAzimuthAngle={-Math.PI / 4 + 0.5}
+        minPolarAngle={Math.PI / 2 - 0.2}
+        maxPolarAngle={Math.PI / 2 + 0.6}
+        minAzimuthAngle={-Math.PI / 4}
         maxAzimuthAngle={Math.PI / 4 - 0.5}
       />
       <Sphere isClicked={props.isClicked} position={[0, 0, 0]} />

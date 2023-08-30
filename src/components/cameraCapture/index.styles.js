@@ -54,5 +54,5 @@ export const CapturedImage = styled.img`
 export const InstructionText = styled.p`
   color: #fff;
   font-family: "Poppins", sans-serif;
-  font-size: 1.2em;
+  font-size: calc(1em + 0.5vw);
 `;

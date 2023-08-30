@@ -49,7 +49,7 @@ const AccessButton = styled.button`
 `;
 
 const PageContainer = styled.div`
-  gap: calc(10px + 5vh);
+  // gap: calc(10px + 5vh);
 `;
 
 export default function Page() {
@@ -84,10 +84,10 @@ export default function Page() {
   };
 
   return (
-    <PageContainer className="d-flex flex-column">
-      <Col className="header">
+    <PageContainer className="d-flex flex-column justify-content-between h-100">
+      <div className="header">
         <ThreeFiberScene isClicked={isClicked} />
-      </Col>
+      </div>
       {!isCorrect ? (
         <AccessContainer className="d-flex flex-column justify-content-center w-75 mx-auto mt-4">
           <AccessInput
@@ -101,10 +101,10 @@ export default function Page() {
         </AccessContainer>
       ) : (
         <>
-          <Col>
+          <div>
             <CameraCapture onLabelClick={handleLabelClick} />
             {/* <TestingApi /> */}
-          </Col>
+          </div>
         </>
       )}
     </PageContainer>

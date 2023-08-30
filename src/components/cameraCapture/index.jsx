@@ -10,6 +10,8 @@ export default function CameraCapture({ onLabelClick }) {
 
   const [isLoading, setIsLoading] = useState(false);
   const [imageSrc, setImageSrc] = useState(null);
+  const [statusMessage, setStatusMessage] = useState(null);
+  const [statusType, setStatusType] = useState(null);
   const clearImage = () => {
     const imageInput = document.getElementById("icon-button-file");
 
@@ -60,6 +62,22 @@ export default function CameraCapture({ onLabelClick }) {
       body: byteArray,
     });
 
+    const clearStatusMessage = () => {
+      setTimeout(() => {
+        setStatusMessage(null);
+        setStatusType(null);
+      }, 3000);
+    };
+
+    if (uploadRes.ok) {
+      setStatusMessage("Bildet er lastet opp 🌥️");
+      setStatusType("success");
+    } else {
+      setStatusMessage("Noe gikk galt 😞");
+      setStatusType("error");
+    }
+    clearStatusMessage();
+
     const uploadData = await uploadRes.json();
     setIsLoading(false);
     console.log(uploadData);
@@ -108,6 +126,14 @@ export default function CameraCapture({ onLabelClick }) {
           body: JSON.stringify({ mutations: [{ create: document }] }),
         });
 
+        // if (postRes.ok) {
+        //   setStatusMessage("Bildet er lastet opp 🌥️");
+        //   setStatusType("success");
+        // } else {
+        //   setStatusMessage("Noe gikk galt 😞");
+        //   setStatusType("error");
+        // }
+
         const postData = await postRes.json();
 
         console.log("Document created: ", postData);
@@ -123,16 +149,17 @@ export default function CameraCapture({ onLabelClick }) {
     instructions.classList.toggle("display-help");
   }
 
-  if (isLoading)
-    return (
-      <div className="d-flex justify-content-center">
-        <ChaoticOrbit size={50} color="white" />
-      </div>
-    );
-
   return (
-    <form className="w-100 mt-2 camera-capture">
-      <S.CapturedImageContainer className="camera-capture__image mx-auto d-flex flex-column mt-4">
+    <div className="w-100 camera-capture">
+      <S.CapturedImageContainer className="camera-capture__image mx-auto d-flex flex-column">
+        {statusMessage && (
+          <div className={`status-message ${statusType}`}>{statusMessage}</div>
+        )}
+        {isLoading && (
+          <div className="d-flex justify-content-center align-items-center w-100 h-100 mb-6">
+            <ChaoticOrbit size={50} color="white" />
+          </div>
+        )}
         {imageSrc && (
           <>
             <S.CapturedImage
@@ -166,7 +193,7 @@ export default function CameraCapture({ onLabelClick }) {
         <div className="button-container d-flex justify-content-center flex-column">
           {!imageSrc && (
             <>
-              <div className="instructions flex-column text-start px-3 mx-auto">
+              <div className="instructions flex-column text-start px-3 mx-auto mb-3">
                 <S.InstructionText>
                   1. Del koden med alle som er med 🙋
                 </S.InstructionText>
@@ -179,13 +206,15 @@ export default function CameraCapture({ onLabelClick }) {
                 </S.InstructionText>
               </div>
               <label htmlFor="icon-button-file">
-                <MdMonochromePhotos className="icons camera-capture__icon mb-3 mt-5" />
+                <MdMonochromePhotos className="icons camera-capture__icon mygap-3" />
               </label>
-              <TbQuestionMark
-                onClick={openInstructions}
-                className="instructions-icon icons position-absolute"
-              />
-              <TbPhoto className="album-icon icons position-absolute" />
+              <div className="d-flex justify-content-between">
+                <TbPhoto className="album-icon icons ms-2" />
+                <TbQuestionMark
+                  onClick={openInstructions}
+                  className="instructions-icon icons"
+                />
+              </div>
               {/* <div>
                 <p className="poppins">
                   Trykk på kameraet for å knipse et bilde!
@@ -195,6 +224,6 @@ export default function CameraCapture({ onLabelClick }) {
           )}
         </div>
       </div>
-    </form>
+    </div>
   );
 }
