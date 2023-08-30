@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { MdMonochromePhotos } from "react-icons/md";
 import { load } from "../../hooks/storage";
 import * as S from "./index.styles";
@@ -15,7 +15,7 @@ export default function CameraCapture({ onLabelClick }) {
   const [albumOpen, setAlbumOpen] = useState(null);
   const [fetchedImages, setFetchedImages] = useState([]);
 
-  const fetchImages = async () => {
+  const fetchImages = useCallback(async () => {
     const projectId = "45qbr9g7";
     const dataset = "production";
     const apiVersion = "v2021-10-21";
@@ -43,7 +43,7 @@ export default function CameraCapture({ onLabelClick }) {
     } else {
       console.error("Failed to fetch images");
     }
-  };
+  }, [accessCode]);
 
   useEffect(() => {
     fetchImages();
