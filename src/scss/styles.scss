@@ -36,31 +36,77 @@ canvas {
   z-index: 23;
 }
 
-.camera-capture__icon {
-  animation: scaling 2s ease-in infinite;
+.icons {
   cursor: pointer;
   z-index: 100;
   position: relative;
   font-size: 4em;
   color: $quaternary-color;
+}
+
+.camera-capture__icon {
+  animation: scaling 2s ease-in infinite;
   transition: all ease-in 0.4s;
   transform: scale(1);
   &:hover {
     color: $secondary-color;
-    transform: scale(1.2) !important;
+    transform: scale(1.1) !important;
   }
 }
 
 @keyframes scaling {
   0% {
     transform: scale(1);
+    color: $quaternary-color;
   }
 
   50% {
     transform: scale(1.1);
+    color: $secondary-color;
   }
 
   100% {
     transform: scale(1);
+    color: $quaternary-color;
+  }
+}
+
+.instructions {
+  max-width: 400px;
+  height: 0;
+  opacity: 0;
+  transition: all 0.9s ease-out;
+}
+
+.instructions-icon {
+  animation: climbing 2s ease-in infinite;
+  right: 20px;
+  bottom: 20px;
+  display: block !important;
+  font-size: 3em;
+}
+
+.album-icon {
+  bottom: 20px;
+  left: 20px;
+  font-size: 3em;
+}
+
+.display-help {
+  height: 200px;
+  opacity: 1;
+}
+
+@keyframes climbing {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
   }
 }

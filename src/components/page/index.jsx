@@ -100,10 +100,12 @@ export default function Page() {
           {error && <p style={{ color: "red" }}>{error}</p>}
         </AccessContainer>
       ) : (
-        <Col>
-          <CameraCapture onLabelClick={handleLabelClick} />
-          {/* <TestingApi /> */}
-        </Col>
+        <>
+          <Col>
+            <CameraCapture onLabelClick={handleLabelClick} />
+            {/* <TestingApi /> */}
+          </Col>
+        </>
       )}
     </PageContainer>
   );

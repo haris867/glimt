@@ -3,6 +3,7 @@ import { MdMonochromePhotos } from "react-icons/md";
 import { load } from "../../hooks/storage";
 import * as S from "./index.styles";
 import { ChaoticOrbit } from "@uiball/loaders";
+import { TbQuestionMark, TbPhoto } from "react-icons/tb";
 
 export default function CameraCapture({ onLabelClick }) {
   const accessCode = JSON.parse(load("accessCode"));
@@ -117,6 +118,11 @@ export default function CameraCapture({ onLabelClick }) {
     setIsLoading(false);
   };
 
+  function openInstructions() {
+    const instructions = document.querySelector(".instructions");
+    instructions.classList.toggle("display-help");
+  }
+
   if (isLoading)
     return (
       <div className="d-flex justify-content-center">
@@ -126,7 +132,7 @@ export default function CameraCapture({ onLabelClick }) {
 
   return (
     <form className="w-100 mt-2 camera-capture">
-      <S.CapturedImageContainer className="camera-capture__image w-75 mx-auto d-flex flex-column">
+      <S.CapturedImageContainer className="camera-capture__image mx-auto d-flex flex-column mt-4">
         {imageSrc && (
           <>
             <S.CapturedImage
@@ -139,7 +145,7 @@ export default function CameraCapture({ onLabelClick }) {
               type="submit"
               className="mx-auto mt-3"
             >
-              DEL
+              LAST OPP
             </S.CaptureButton>
             <S.RemoveButton onClick={clearImage} className="mx-auto mt-3">
               ANGRE
@@ -160,14 +166,31 @@ export default function CameraCapture({ onLabelClick }) {
         <div className="button-container d-flex justify-content-center flex-column">
           {!imageSrc && (
             <>
+              <div className="instructions flex-column text-start px-3 mx-auto">
+                <S.InstructionText>
+                  1. Del koden med alle som er med 🙋
+                </S.InstructionText>
+                <S.InstructionText>2. Trykk på kameraet 📷</S.InstructionText>
+                <S.InstructionText>
+                  3. Knips bilder og last opp 🤳
+                </S.InstructionText>
+                <S.InstructionText>
+                  4. Vent i spenning på delt album 👯
+                </S.InstructionText>
+              </div>
               <label htmlFor="icon-button-file">
-                <MdMonochromePhotos className="camera-capture__icon my-3" />
+                <MdMonochromePhotos className="icons camera-capture__icon mb-3 mt-5" />
               </label>
-              <div>
+              <TbQuestionMark
+                onClick={openInstructions}
+                className="instructions-icon icons position-absolute"
+              />
+              <TbPhoto className="album-icon icons position-absolute" />
+              {/* <div>
                 <p className="poppins">
                   Trykk på kameraet for å knipse et bilde!
                 </p>
-              </div>
+              </div> */}
             </>
           )}
         </div>

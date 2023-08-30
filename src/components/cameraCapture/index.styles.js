@@ -50,3 +50,9 @@ export const CapturedImage = styled.img`
   background-position: center;
   background-repeat: no-repeat;
 `;
+
+export const InstructionText = styled.p`
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.2em;
+`;
