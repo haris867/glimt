@@ -9,7 +9,6 @@ function Scene({ ...props }) {
 
   return (
     <>
-      <color attach="background" args={["#74B5B7"]} />
       <group {...props} dispose={null}>
         <scene name="Scene">
           <group name="object_camera" position={[0, 0, 0]}>
