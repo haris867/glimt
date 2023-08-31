@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { MdMonochromePhotos } from "react-icons/md";
+// import { MdMonochromePhotos } from "react-icons/md";
 import { load } from "../../hooks/storage";
 import * as S from "./index.styles";
 import { ChaoticOrbit } from "@uiball/loaders";
 import { TbQuestionMark, TbPhoto } from "react-icons/tb";
+import TestingCamera from "../testingCamera";
 
 export default function CameraCapture({ onLabelClick }) {
   const accessCode = JSON.parse(load("accessCode"));
@@ -258,7 +259,8 @@ export default function CameraCapture({ onLabelClick }) {
                 </S.InstructionText>
               </div>
               <label htmlFor="icon-button-file">
-                <MdMonochromePhotos className="icons camera-capture__icon mygap-3" />
+                {/* <MdMonochromePhotos className="icons camera-capture__icon mygap-3" /> */}
+                <TestingCamera />
               </label>
               <div className="d-flex justify-content-between mb-3">
                 <TbPhoto
