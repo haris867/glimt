@@ -12,7 +12,7 @@ function Scene({ ...props }) {
       <color attach="background" args={["#74B5B7"]} />
       <group {...props} dispose={null}>
         <scene name="Scene">
-          <group name="object_camera" position={[0, 54.67, 0]}>
+          <group name="object_camera" position={[0, 0, 0]}>
             <mesh
               name="buttonback2"
               geometry={nodes.buttonback2.geometry}
@@ -134,10 +134,12 @@ function Scene({ ...props }) {
             position={[-193.5, 390.79, 964.96]}
             rotation={[-0.47, -0.52, -0.25]}
             scale={1}
-          ></OrthographicCamera>
-
-          <ambientLight name="Default Ambient Light" intensity={2.4} />
-          <hemisphereLight name="Default Hemisphere Light" intensity={1.3} />
+          >
+            <directionalLight intensity={0.2} position={[0, 0, 1]} />
+          </OrthographicCamera>
+          <directionalLight intensity={2} position={[0, 20, 8]} />
+          <ambientLight name="Default Ambient Light" intensity={2} />
+          <hemisphereLight name="Default Hemisphere Light" intensity={1} />
         </scene>
       </group>
     </>
