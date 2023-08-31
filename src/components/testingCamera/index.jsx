@@ -5,7 +5,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
 function Scene({ ...props }) {
-  const { nodes, materials } = useSpline("/assets/camera_copy.spline");
+  const { nodes, materials } = useSpline("/assets/camera.spline");
 
   return (
     <>

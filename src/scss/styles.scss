@@ -40,9 +40,7 @@ header canvas {
 .icons {
   cursor: pointer;
   z-index: 100;
-  position: relative;
-  font-size: 4em;
-  color: $quaternary-color;
+  max-width: 150px;
 }
 
 .camera-capture__icon {

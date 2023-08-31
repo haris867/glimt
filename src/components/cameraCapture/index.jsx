@@ -3,8 +3,10 @@ import React, { useState, useEffect, useCallback } from "react";
 import { load } from "../../hooks/storage";
 import * as S from "./index.styles";
 import { ChaoticOrbit } from "@uiball/loaders";
-import { TbQuestionMark, TbPhoto } from "react-icons/tb";
+// import { TbQuestionMark, TbPhoto } from "react-icons/tb";
 import TestingCamera from "../testingCamera";
+import HelpIcon from "../help";
+import AlbumIcon from "../albumIcon";
 
 export default function CameraCapture({ onLabelClick }) {
   const accessCode = JSON.parse(load("accessCode"));
@@ -263,15 +265,20 @@ export default function CameraCapture({ onLabelClick }) {
                 <TestingCamera />
               </label>
               <div className="d-flex justify-content-between mb-5 pb-5">
-                <TbPhoto
+                {/* <TbPhoto
                   className="album-icon icons ms-2"
                   onClick={openAlbum}
-                />
-                <TbQuestionMark
-                  onClick={openInstructions}
-                  className="instructions-icon icons"
-                />
+                /> */}
+                <div className="icons" onClick={openAlbum}>
+                  <AlbumIcon />
+                </div>
+                {/* <TbQuestionMark className="instructions-icon icons" />
+                 */}
+                <div className="icons" onClick={openInstructions}>
+                  <HelpIcon />
+                </div>
               </div>
+
               {/* <div>
                 <p className="poppins">
                   Trykk på kameraet for å knipse et bilde!
