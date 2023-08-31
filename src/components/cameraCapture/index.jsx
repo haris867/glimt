@@ -246,7 +246,7 @@ export default function CameraCapture({ onLabelClick }) {
         <div className="button-container d-flex justify-content-center flex-column">
           {!imageSrc && (
             <>
-              <div className="instructions flex-column text-start px-3 mx-auto mb-3">
+              <div className="instructions flex-column text-start px-3 mx-auto">
                 <S.InstructionText>
                   1. Del koden med alle som er med 🙋
                 </S.InstructionText>
@@ -258,11 +258,11 @@ export default function CameraCapture({ onLabelClick }) {
                   4. Vent i spenning på delt album 👯
                 </S.InstructionText>
               </div>
-              <label htmlFor="icon-button-file">
+              <label className="cursor-pointer" htmlFor="icon-button-file">
                 {/* <MdMonochromePhotos className="icons camera-capture__icon mygap-3" /> */}
                 <TestingCamera />
               </label>
-              <div className="d-flex justify-content-between mb-3">
+              <div className="d-flex justify-content-between mb-5 py-3">
                 <TbPhoto
                   className="album-icon icons ms-2"
                   onClick={openAlbum}

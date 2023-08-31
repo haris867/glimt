@@ -79,7 +79,6 @@ export default function Sphere({
   return (
     <group position={position}>
       <mesh ref={meshRef}>
-        10
         <sphereGeometry args={[currentRadius, 64, 64]} />
         <meshStandardMaterial
           color={new THREE.Color("#2d6b79")}
@@ -113,6 +112,20 @@ export default function Sphere({
             64,
             64,
             Math.PI * 0.22,
+            Math.PI * 0.5,
+            Math.PI * 0.32,
+            Math.PI * 0.5,
+          ]}
+        />
+        <meshBasicMaterial map={textTexture} transparent={true} />
+      </mesh>
+      <mesh>
+        <sphereGeometry
+          args={[
+            currentRadius + 0.001,
+            64,
+            64,
+            Math.PI,
             Math.PI * 0.5,
             Math.PI * 0.32,
             Math.PI * 0.5,

@@ -12,7 +12,7 @@ function Scene({ ...props }) {
       <color attach="background" args={["#74B5B7"]} />
       <group {...props} dispose={null}>
         <scene name="Scene">
-          <group name="object_camera" position={[-44, 54.67, 0]}>
+          <group name="object_camera" position={[0, 54.67, 0]}>
             <mesh
               name="buttonback2"
               geometry={nodes.buttonback2.geometry}
@@ -155,6 +155,7 @@ export default function TestingCamera() {
           enableZoom={false}
           minPolarAngle={Math.PI / 2 - 0.2}
           maxPolarAngle={Math.PI / 2 + 0.6}
+          rotateSpeed={0.4}
         />
       </Canvas>
     </Suspense>

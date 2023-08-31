@@ -100,7 +100,6 @@ header canvas {
   opacity: 1;
   bottom: 30px;
 }
-
 .status-message {
   color: #fff;
   font-size: 1.2em;
@@ -117,6 +116,10 @@ header canvas {
 
 .album-image img {
   max-width: 450px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 @keyframes climbing {

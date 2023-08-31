@@ -62,6 +62,7 @@ export default function ThreeFiberScene(props) {
         enableZoom={false}
         minPolarAngle={Math.PI / 2 - 0.2}
         maxPolarAngle={Math.PI / 2 + 0.6}
+        rotateSpeed={0.2}
       />
       <Sphere isClicked={props.isClicked} position={[0, 0, 0]} />
     </Canvas>
