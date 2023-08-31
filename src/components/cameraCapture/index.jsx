@@ -206,11 +206,6 @@ export default function CameraCapture({ onLabelClick }) {
   return (
     <div className="w-100 camera-capture">
       <S.CapturedImageContainer className="camera-capture__image mx-auto d-flex flex-column">
-        {isLoading && (
-          <div className="d-flex justify-content-center align-items-center w-100 h-100 mb-6">
-            <ChaoticOrbit size={50} color="white" />
-          </div>
-        )}
         {imageSrc && (
           <>
             <S.CapturedImage
@@ -231,10 +226,16 @@ export default function CameraCapture({ onLabelClick }) {
           </>
         )}
       </S.CapturedImageContainer>
-      {statusMessage && (
-        <div className={`status-message ${statusType}`}>{statusMessage}</div>
-      )}
+
       <div className="w-100 mt-4 mb-2">
+        {isLoading && (
+          <div className="d-flex justify-content-center align-items-center w-100 h-100 mb-6">
+            <ChaoticOrbit size={50} color="white" />
+          </div>
+        )}
+        {statusMessage && (
+          <div className={`status-message ${statusType}`}>{statusMessage}</div>
+        )}
         <input
           accept="image/*"
           id="icon-button-file"
