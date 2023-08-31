@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 export default function OrientationLock() {
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function OrientationLock() {
       window.removeEventListener("orientationchange", handleOrientationChange);
       window.removeEventListener("resize", handleOrientationChange);
     };
-  }, [window.innerWidth, window.innerHeight]);
+  }, []);
 
   return null;
 }
