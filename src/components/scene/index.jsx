@@ -53,8 +53,8 @@ export default function ThreeFiberScene(props) {
         fov={75}
         position={[0, 2, 25]}
       /> */}
-      <ambientLight intensity={2.3} />
-      {/* <directionalLight position={[5, 5, -5]} intensity={1} /> */}
+      <ambientLight intensity={2.7} />
+      {/* <directionalLight position={[-15, 20, 5]} intensity={2} /> */}
       <AnimatedLight />
       <OrbitControls
         enablePan={false}
