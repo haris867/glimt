@@ -262,7 +262,7 @@ export default function CameraCapture({ onLabelClick }) {
                 {/* <MdMonochromePhotos className="icons camera-capture__icon mygap-3" /> */}
                 <TestingCamera />
               </label>
-              <div className="d-flex justify-content-between mb-5 py-3">
+              <div className="d-flex justify-content-between mb-5 pb-5">
                 <TbPhoto
                   className="album-icon icons ms-2"
                   onClick={openAlbum}
