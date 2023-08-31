@@ -42,7 +42,6 @@ export default function CameraCapture({ onLabelClick }) {
         return new Date(b.time) - new Date(a.time);
       });
       setFetchedImages(sortedImages);
-      console.log("Updated fetchedImages:", sortedImages);
     } else {
       console.error("Failed to fetch images");
     }
