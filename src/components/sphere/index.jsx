@@ -31,7 +31,6 @@ export default function Sphere({
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentRadius((prevRadius) => {
-        // The 0.05 here determines the speed of the interpolation.
         const newRadius = THREE.MathUtils.lerp(prevRadius, targetRadius, 0.05);
         if (Math.abs(newRadius - targetRadius) < 0.01) {
           clearInterval(interval);
