@@ -189,6 +189,9 @@ export default function CameraCapture({ onLabelClick }) {
       setAlbumOpen(false);
     } else {
       setAlbumOpen(true);
+      setTimeout(() => {
+        window.scrollBy(0, 500);
+      }, 2000);
     }
     const instructions = document.querySelector(".instructions");
     if (instructions) {

@@ -102,6 +102,9 @@ export default function Page() {
           />
           <AccessButton onClick={handleSubmit}>BLI MED</AccessButton>
           {error && <p style={{ color: "red" }}>{error}</p>}
+          <AddText>
+            Ingen kode? Prøv "<span className="fw-bold">images2</span>"
+          </AddText>
           <div className="mt-3 tips">
             <AddText>
               iPhone? Trykk på <BsBoxArrowUp /> og deretter{" "}

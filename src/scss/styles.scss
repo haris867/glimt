@@ -149,3 +149,9 @@ header canvas {
     transform: translateY(0);
   }
 }
+
+@media (min-width: 700px) {
+  .tips {
+    opacity: 0;
+  }
+}
